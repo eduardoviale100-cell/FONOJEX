@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FonoJex Pro | Imperial - Cañete</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-nav">
+            <img src="img/logo-fonojex.jpg" alt="FonoJex Pro">
+        </div>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#equipos">Equipos</a></li>
+            <li><a href="#clientes">Clientes</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <header id="inicio">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Tus equipos preferidos <span>a un clic</span></h1>
+                <p>Venta de celulares nuevos, accesorios y tecnología. Atendemos en Imperial - Cañete.</p>
+                <div class="hero-buttons">
+                    <a href="https://wa.me/51913291289" target="_blank" class="btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Cotizar Ahora
+                    </a>
+                    <a href="#equipos" class="btn-catalogo">
+                        Ver Equipos
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="img/hero-celulares.jpg" alt="Hero">
+            </div>
+        </div>
+    </header>
+
+    <section id="equipos">
+        <h2 class="titulo">Equipos Destacados</h2>
+
+        <div class="productos">
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="img/Samsung-A16.png" alt="Samsung-A16">
+                </div>
+                <div class="contenido">
+                    <h3>Samsung Galaxy A16 4G</h3>
+                    <div class="precio">S/ 599</div>
+                    <p>Potencia, cámaras premium y batería duradera.</p>
+                    <a href="https://wa.me/51913291289">Consultar</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="img/samsung-a07.png" alt="Samsung-A07">
+                </div>
+                <div class="contenido">
+                    <h3>Samsung Galaxy A07</h3>
+                    <div class="precio">S/ 459</div>
+                    <p>Excelente relación calidad-precio.</p>
+                    <a href="https://wa.me/51913291289">Consultar</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="img/moto.png" alt="Moto Edge 60 Fusion">
+                </div>
+                <div class="contenido">
+                    <h3>Moto Edge 60 Fusion</h3>
+                    <div class="precio">S/ 1099</div>
+                    <p>Diseño premium y pantalla curva.</p>
+                    <a href="https://wa.me/51913291289">Consultar</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="img/redmi.png" alt="Redmi 15C">
+                </div>
+                <div class="contenido">
+                    <h3>Redmi 15C</h3>
+                    <div class="precio">S/ 559</div>
+                    <p>Excelente batería y gran rendimiento.</p>
+                    <a href="https://wa.me/51913291289">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="oferta">
+        <h2>OFERTAS DE LA SEMANA</h2>
+        <p>Promociones especiales en Samsung, Motorola, Xiaomi y Honor.</p>
+        <a href="https://wa.me/51913291289">Solicitar Catálogo</a>
+    </section>
+
+    <section id="clientes">
+        <h2 class="titulo">Clientes Satisfechos</h2>
+        <p class="subtitulo">Gracias por confiar en FonoJex Pro</p>
+
+        <div class="clientes-grid">
+            <!-- Cliente 1 -->
+            <div class="cliente">
+                <img src="img/cliente1.jpg" alt="Cliente" class="imagen-cliente" onclick="abrirImagen(this.src)">
+                <h3>Cliente Feliz</h3>
+                <p>MOTO G06</p>
+            </div>
+
+            <!-- Cliente 2 -->
+            <div class="cliente">
+                <img src="img/cliente2.jpg" alt="Cliente" class="imagen-cliente" onclick="abrirImagen(this.src)">
+                <h3>Cliente Feliz</h3>
+                <p>Moto G15</p>
+            </div>
+
+            <!-- Cliente 3 -->
+            <div class="cliente">
+                <img src="img/cliente3.jpg" alt="Cliente" class="imagen-cliente" onclick="abrirImagen(this.src)">
+                <h3>Cliente Feliz</h3>
+                <p>MOTO G15</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="footer-line"></div>
+        <div class="footer-content">
+            <h3>FonoJex Pro</h3>
+            <p>Tus equipos preferidos a un clic</p>
+            
+            <!-- Información de contacto organizada -->
+            <div class="footer-info">
+                <p><i class="fas fa-map-marker-alt"></i> Urb. Santa Rosa Mz. A Lote 16, Imperial - Cañete</p>
+                <p><i class="fas fa-phone-alt"></i> +51 913 291 289</p>
+                <p><i class="fab fa-instagram"></i> @fonojexpro</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="social-float-container">
+        <a class="social-float-btn whatsapp" href="https://wa.me/51913291289" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a class="social-float-btn facebook" href="https://www.facebook.com/share/1BMQMnYN57/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a class="social-float-btn tiktok" href="https://www.tiktok.com/@power_pe?_r=1&_t=ZS-97UU9MZSbi8" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
