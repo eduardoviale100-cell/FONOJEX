@@ -1,67 +1,150 @@
-let lastScrollTop = 0;
-const navbar = document.querySelector('.navbar');
+document.addEventListener('DOMContentLoaded', () => {
 
-window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    // Si bajamos más de 100px y el scroll es mayor al anterior, ocultamos
-    if (scrollTop > lastScrollTop && scrollTop > 100) {
-        navbar.classList.add('ocultar');
-    } else {
-        // Si subimos, mostramos
-        navbar.classList.remove('ocultar');
+    // ==========================================================
+    // NAVBAR: OCULTAR AL BAJAR / MOSTRAR AL SUBIR
+    // ==========================================================
+
+    const navbar = document.querySelector('.navbar');
+
+    if (navbar) {
+        let lastScrollTop = 0;
+        let ticking = false;
+
+        const controlarNavbar = () => {
+            const scrollTop = Math.max(
+                window.scrollY || document.documentElement.scrollTop,
+                0
+            );
+
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                navbar.classList.add('ocultar');
+            } else {
+                navbar.classList.remove('ocultar');
+            }
+
+            lastScrollTop = scrollTop;
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(controlarNavbar);
+                ticking = true;
+            }
+        }, { passive: true });
     }
-    
-    lastScrollTop = scrollTop;
-});
-// Crear el elemento modal en el body si no existe
-const modal = document.createElement('div');
-modal.id = 'modal-imagen';
-modal.innerHTML = '<img src="">';
-document.body.appendChild(modal);
 
-// Función para abrir
-function abrirImagen(src) {
-    const modalImg = document.querySelector('#modal-imagen img');
-    modalImg.src = src;
-    modal.style.display = 'flex';
-}
 
-// Cerrar el modal al hacer clic en cualquier parte
-modal.addEventListener('click', () => {
-    modal.style.display = 'none';
-});
+    // ==========================================================
+    // MODAL DE IMÁGENES
+    // ==========================================================
 
-// ==========================================================
-// MENÚ HAMBURGUESA (TABLET / MÓVIL)
-// No modifica ninguna función existente, solo añade el
-// comportamiento del menú responsive.
-// ==========================================================
-const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.querySelector('.navbar ul');
+    let modal = document.querySelector('#modal-imagen');
 
-if (menuToggle && navMenu) {
-    menuToggle.addEventListener('click', () => {
-        const abierto = navMenu.classList.toggle('activo');
-        menuToggle.classList.toggle('activo');
-        menuToggle.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-    });
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-imagen';
 
-    // Cerrar el menú al hacer clic en un enlace
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('activo');
-            menuToggle.classList.remove('activo');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        });
-    });
+        modal.innerHTML = `
+            <div class="modal-contenido">
+                <button class="modal-cerrar" aria-label="Cerrar imagen">&times;</button>
+                <img src="" alt="Imagen ampliada">
+            </div>
+        `;
 
-    // Cerrar el menú al hacer clic fuera de la navbar
-    document.addEventListener('click', (e) => {
-        if (navMenu.classList.contains('activo') && !e.target.closest('.navbar')) {
-            navMenu.classList.remove('activo');
-            menuToggle.classList.remove('activo');
-            menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.appendChild(modal);
+    }
+
+    const modalImg = modal.querySelector('img');
+    const botonCerrar = modal.querySelector('.modal-cerrar');
+
+    window.abrirImagen = function (src) {
+        if (!src || !modalImg) return;
+
+        modalImg.src = src;
+        modal.classList.add('activo');
+        document.body.classList.add('modal-abierto');
+    };
+
+    function cerrarModal() {
+        modal.classList.remove('activo');
+        document.body.classList.remove('modal-abierto');
+
+        setTimeout(() => {
+            if (!modal.classList.contains('activo')) {
+                modalImg.src = '';
+            }
+        }, 200);
+    }
+
+    if (botonCerrar) {
+        botonCerrar.addEventListener('click', cerrarModal);
+    }
+
+    modal.addEventListener('click', (e) => {
+        if (
+            e.target === modal ||
+            e.target.classList.contains('modal-contenido')
+        ) {
+            cerrarModal();
         }
     });
-}
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('activo')) {
+            cerrarModal();
+        }
+    });
+
+
+    // ==========================================================
+    // MENÚ HAMBURGUESA
+    // ==========================================================
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('.navbar ul');
+
+    if (menuToggle && navMenu) {
+
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            const abierto = navMenu.classList.toggle('activo');
+
+            menuToggle.classList.toggle('activo', abierto);
+
+            menuToggle.setAttribute(
+                'aria-expanded',
+                abierto ? 'true' : 'false'
+            );
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('activo');
+                menuToggle.classList.remove('activo');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (
+                navMenu.classList.contains('activo') &&
+                !e.target.closest('.navbar')
+            ) {
+                navMenu.classList.remove('activo');
+                menuToggle.classList.remove('activo');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navMenu.classList.remove('activo');
+                menuToggle.classList.remove('activo');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+});
